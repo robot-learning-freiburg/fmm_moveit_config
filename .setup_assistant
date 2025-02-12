@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: fmm
+    relative_path: urdf/fmm.urdf.xacro
+    xacro_args: ros_distro:=noetic
+  SRDF:
+    relative_path: config/fmm.srdf
+  CONFIG:
+    author_name: Daniel Honerkamp
+    author_email: honerkamp@cs.uni-freiburg.de
+    generated_timestamp: 1671184327
