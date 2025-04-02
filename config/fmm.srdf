@@ -12,27 +12,32 @@
     <group name="base">
         <joint name="world_joint" />
     </group>
-    <group name="franka_arm">
-        <joint name="panda_joint1" />
-        <joint name="panda_joint2" />
-        <joint name="panda_joint3" />
-        <joint name="panda_joint4" />
-        <joint name="panda_joint5" />
-        <joint name="panda_joint6" />
-        <joint name="panda_joint7" />
-        <joint name="panda_joint8" />
-        <joint name="panda_hand_joint" />
+    <group name="ur5_arm">
+        <joint name="ur5_shoulder_pan_joint" />
+        <joint name="ur5_shoulder_lift_joint" />
+        <joint name="ur5_elbow_joint" />
+        <joint name="ur5_wrist_1_joint" />
+        <joint name="ur5_wrist_2_joint" />
+        <joint name="ur5_wrist_3_joint" />
+        <joint name="ur5_ee_fixed_joint" />
+        <!-- <joint name="panda_hand_joint" /> -->
     </group>
     <group name="torso">
         <joint name="ewellix_lift_top_joint" />
     </group>
     <group name="hand">
-        <link name="panda_hand" />
-        <link name="panda_leftfinger" />
-        <link name="panda_rightfinger" />
+        <joint name="ur5_robotiq_85_base_joint" />
+        <joint name="ur5_robotiq_85_left_knuckle_joint" />
+        <joint name="ur5_robotiq_85_right_knuckle_joint" />
+        <joint name="ur5_robotiq_85_left_finger_joint" />
+        <joint name="ur5_robotiq_85_right_finger_joint" />
+        <joint name="ur5_robotiq_85_left_inner_knuckle_joint" />
+        <joint name="ur5_robotiq_85_right_inner_knuckle_joint" />
+        <joint name="ur5_robotiq_85_left_finger_tip_joint" />
+        <joint name="ur5_robotiq_85_right_finger_tip_joint" />
     </group>
     <group name="arm_torso">
-        <group name="franka_arm" />
+        <group name="ur5_arm" />
         <group name="torso" />
     </group>
     <group name="whole_body">
@@ -40,17 +45,17 @@
       <group name="base" />
     </group>
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
-    <group_state name="arm_default" group="franka_arm">
-        <joint name="panda_joint1" value="1.157" />
-        <joint name="panda_joint2" value="-1.066" />
-        <joint name="panda_joint3" value="-0.155" />
-        <joint name="panda_joint4" value="-2.239" />
-        <joint name="panda_joint5" value="-1.841" />
-        <joint name="panda_joint6" value="1.003" />
-        <joint name="panda_joint7" value="0.469" />
+    <group_state name="arm_default" group="ur5_arm">
+        <joint name="ur5_elbow_joint" value="1.5707" />
+        <joint name="ur5_shoulder_lift_joint" value="-1.5707" />
+        <joint name="ur5_shoulder_pan_joint" value="0" />
+        <joint name="ur5_wrist_1_joint" value="0" />
+        <joint name="ur5_wrist_2_joint" value="0" />
+        <joint name="ur5_wrist_3_joint" value="0.0011" />
+        <joint name="ur5_ee_fixed_joint" value="0.0" />
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="hand" parent_link="panda_link8" group="hand" />
+    <end_effector name="hand" parent_link="ur5_ee_link" group="hand" />
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="world_joint" type="planar" parent_frame="world" child_link="base_link" />
     <!--PASSIVE JOINT: Purpose: this element is used to mark joints that are not actuated-->
@@ -60,99 +65,25 @@
     <passive_joint name="rear_right_wheel" />
     <passive_joint name="front_rocker" />
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
-    <!-- from panda_moveit_config -->
-  <disable_collisions link1="panda_link0" link2="panda_link0" reason="Never"/>
-  <disable_collisions link1="panda_link0" link2="panda_link1" reason="Never"/>
-  <disable_collisions link1="panda_link0" link2="panda_link2" reason="Never"/>
-  <disable_collisions link1="panda_link0" link2="panda_link3" reason="Never"/>
-  <disable_collisions link1="panda_link0" link2="panda_link4" reason="Never"/>
-  <disable_collisions link1="panda_link0" link2="panda_link5" reason="Never"/>
-  <disable_collisions link1="panda_link0" link2="panda_link6" reason="Never"/>
-  <disable_collisions link1="panda_link0" link2="panda_link7" reason="Never"/>
-  <disable_default_collisions link="panda_link0_sc"/>
-  <enable_collisions link1="panda_link0_sc" link2="panda_link5_sc"/>
-  <enable_collisions link1="panda_link0_sc" link2="panda_link6_sc"/>
-  <enable_collisions link1="panda_link0_sc" link2="panda_link7_sc"/>
-  <disable_collisions link1="panda_link1" link2="panda_link0" reason="Never"/>
-  <disable_collisions link1="panda_link1" link2="panda_link1" reason="Never"/>
-  <disable_collisions link1="panda_link1" link2="panda_link2" reason="Never"/>
-  <disable_collisions link1="panda_link1" link2="panda_link3" reason="Never"/>
-  <disable_collisions link1="panda_link1" link2="panda_link4" reason="Never"/>
-  <disable_collisions link1="panda_link1" link2="panda_link5" reason="Never"/>
-  <disable_collisions link1="panda_link1" link2="panda_link6" reason="Never"/>
-  <disable_collisions link1="panda_link1" link2="panda_link7" reason="Never"/>
-  <disable_default_collisions link="panda_link1_sc"/>
-  <enable_collisions link1="panda_link1_sc" link2="panda_link5_sc"/>
-  <enable_collisions link1="panda_link1_sc" link2="panda_link6_sc"/>
-  <enable_collisions link1="panda_link1_sc" link2="panda_link7_sc"/>
-  <disable_collisions link1="panda_link2" link2="panda_link0" reason="Never"/>
-  <disable_collisions link1="panda_link2" link2="panda_link1" reason="Never"/>
-  <disable_collisions link1="panda_link2" link2="panda_link2" reason="Never"/>
-  <disable_collisions link1="panda_link2" link2="panda_link3" reason="Never"/>
-  <disable_collisions link1="panda_link2" link2="panda_link4" reason="Never"/>
-  <disable_collisions link1="panda_link2" link2="panda_link5" reason="Never"/>
-  <disable_collisions link1="panda_link2" link2="panda_link6" reason="Never"/>
-  <disable_collisions link1="panda_link2" link2="panda_link7" reason="Never"/>
-  <disable_default_collisions link="panda_link2_sc"/>
-  <enable_collisions link1="panda_link2_sc" link2="panda_link5_sc"/>
-  <enable_collisions link1="panda_link2_sc" link2="panda_link6_sc"/>
-  <enable_collisions link1="panda_link2_sc" link2="panda_link7_sc"/>
-  <disable_collisions link1="panda_link3" link2="panda_link0" reason="Never"/>
-  <disable_collisions link1="panda_link3" link2="panda_link1" reason="Never"/>
-  <disable_collisions link1="panda_link3" link2="panda_link2" reason="Never"/>
-  <disable_collisions link1="panda_link3" link2="panda_link3" reason="Never"/>
-  <disable_collisions link1="panda_link3" link2="panda_link4" reason="Never"/>
-  <disable_collisions link1="panda_link3" link2="panda_link5" reason="Never"/>
-  <disable_collisions link1="panda_link3" link2="panda_link6" reason="Never"/>
-  <disable_collisions link1="panda_link3" link2="panda_link7" reason="Never"/>
-  <disable_default_collisions link="panda_link3_sc"/>
-  <enable_collisions link1="panda_link3_sc" link2="panda_link7_sc"/>
-  <disable_collisions link1="panda_link4" link2="panda_link0" reason="Never"/>
-  <disable_collisions link1="panda_link4" link2="panda_link1" reason="Never"/>
-  <disable_collisions link1="panda_link4" link2="panda_link2" reason="Never"/>
-  <disable_collisions link1="panda_link4" link2="panda_link3" reason="Never"/>
-  <disable_collisions link1="panda_link4" link2="panda_link4" reason="Never"/>
-  <disable_collisions link1="panda_link4" link2="panda_link5" reason="Never"/>
-  <disable_collisions link1="panda_link4" link2="panda_link6" reason="Never"/>
-  <disable_collisions link1="panda_link4" link2="panda_link7" reason="Never"/>
-  <disable_default_collisions link="panda_link4_sc"/>
-  <disable_collisions link1="panda_link5" link2="panda_link0" reason="Never"/>
-  <disable_collisions link1="panda_link5" link2="panda_link1" reason="Never"/>
-  <disable_collisions link1="panda_link5" link2="panda_link2" reason="Never"/>
-  <disable_collisions link1="panda_link5" link2="panda_link3" reason="Never"/>
-  <disable_collisions link1="panda_link5" link2="panda_link4" reason="Never"/>
-  <disable_collisions link1="panda_link5" link2="panda_link5" reason="Never"/>
-  <disable_collisions link1="panda_link5" link2="panda_link6" reason="Never"/>
-  <disable_collisions link1="panda_link5" link2="panda_link7" reason="Never"/>
-  <disable_default_collisions link="panda_link5_sc"/>
-  <disable_collisions link1="panda_link6" link2="panda_link0" reason="Never"/>
-  <disable_collisions link1="panda_link6" link2="panda_link1" reason="Never"/>
-  <disable_collisions link1="panda_link6" link2="panda_link2" reason="Never"/>
-  <disable_collisions link1="panda_link6" link2="panda_link3" reason="Never"/>
-  <disable_collisions link1="panda_link6" link2="panda_link4" reason="Never"/>
-  <disable_collisions link1="panda_link6" link2="panda_link5" reason="Never"/>
-  <disable_collisions link1="panda_link6" link2="panda_link6" reason="Never"/>
-  <disable_collisions link1="panda_link6" link2="panda_link7" reason="Never"/>
-  <disable_default_collisions link="panda_link6_sc"/>
-  <disable_collisions link1="panda_link7" link2="panda_link0" reason="Never"/>
-  <disable_collisions link1="panda_link7" link2="panda_link1" reason="Never"/>
-  <disable_collisions link1="panda_link7" link2="panda_link2" reason="Never"/>
-  <disable_collisions link1="panda_link7" link2="panda_link3" reason="Never"/>
-  <disable_collisions link1="panda_link7" link2="panda_link4" reason="Never"/>
-  <disable_collisions link1="panda_link7" link2="panda_link5" reason="Never"/>
-  <disable_collisions link1="panda_link7" link2="panda_link6" reason="Never"/>
-  <disable_collisions link1="panda_link7" link2="panda_link7" reason="Never"/>
-  <disable_default_collisions link="panda_link7_sc"/>
+    <!-- from ur5_moveit_config -->
+    <disable_collisions link1="ur5_arm_base_link" link2="ur5_shoulder_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_arm_base_link" link2="ur5_upper_arm_link" reason="Never" />
+    <disable_collisions link1="ur5_arm_base_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_forearm_link" link2="ur5_upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_forearm_link" link2="ur5_wrist_1_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_shoulder_link" link2="ur5_upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_shoulder_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_shoulder_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_wrist_1_link" link2="ur5_wrist_2_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_wrist_1_link" link2="ur5_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ur5_wrist_2_link" link2="ur5_wrist_3_link" reason="Adjacent" />
     <!-- from moveit configurater -->
-    <disable_collisions link1="axle_link" link2="camera_tower_link" reason="Never" />
-    <disable_collisions link1="axle_link" link2="camera_wrist_link" reason="Never" />
-    <disable_collisions link1="axle_link" link2="chassis_link" reason="Adjacent" />
+   <disable_collisions link1="axle_link" link2="chassis_link" reason="Adjacent" />
     <disable_collisions link1="axle_link" link2="dc_ac" reason="Never" />
     <disable_collisions link1="axle_link" link2="ewellix_lift_base_link" reason="Never" />
     <disable_collisions link1="axle_link" link2="ewellix_lift_panda_fix" reason="Never" />
     <disable_collisions link1="axle_link" link2="ewellix_lift_scu" reason="Never" />
     <disable_collisions link1="axle_link" link2="ewellix_lift_top_link" reason="Never" />
-    <disable_collisions link1="axle_link" link2="eyes_link" reason="Never" />
     <disable_collisions link1="axle_link" link2="front_cover_link" reason="Never" />
     <disable_collisions link1="axle_link" link2="front_left_wheel_link" reason="Never" />
     <disable_collisions link1="axle_link" link2="front_lights_link" reason="Never" />
@@ -161,26 +92,6 @@
     <disable_collisions link1="axle_link" link2="hinge_link" reason="Never" />
     <disable_collisions link1="axle_link" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="axle_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_hand" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_hand_sc" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_leftfinger" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link5" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link5_sc" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link6" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link6_sc" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link7" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_link7_sc" reason="Never" />
-    <disable_collisions link1="axle_link" link2="panda_rightfinger" reason="Never" />
     <disable_collisions link1="axle_link" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="axle_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="axle_link" link2="rear_lights_link" reason="Never" />
@@ -195,72 +106,9 @@
     <disable_collisions link1="axle_link" link2="top_link" reason="Never" />
     <disable_collisions link1="axle_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="axle_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="axle_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="axle_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="axle_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="axle_link" link2="wrist_mount_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="chassis_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="dc_ac" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="ewellix_lift_base_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="ewellix_lift_panda_fix" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="ewellix_lift_scu" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="ewellix_lift_top_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="front_cover_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="front_left_wheel_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="front_lights_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="front_right_wheel_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="front_rocker_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="hinge_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="left_side_cover_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="panda_link5_sc" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="side_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="top_link" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="top_plate" reason="Never" />
-    <disable_collisions link1="camera_tower_link" link2="top_plate_link" reason="Adjacent" />
-    <disable_collisions link1="camera_tower_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="eyes_link" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="front_left_wheel_link" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="front_lights_link" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="front_right_wheel_link" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="front_rocker_link" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_hand" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_hand_sc" reason="Default" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_leftfinger" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_link5" reason="Default" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_link5_sc" reason="Default" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_link6" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_link6_sc" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_link7" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_link7_sc" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="panda_rightfinger" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="camera_wrist_link" link2="wrist_mount_link" reason="Adjacent" />
     <disable_collisions link1="chassis_link" link2="dc_ac" reason="Default" />
     <disable_collisions link1="chassis_link" link2="ewellix_lift_base_link" reason="Never" />
     <disable_collisions link1="chassis_link" link2="ewellix_lift_panda_fix" reason="Never" />
@@ -273,16 +121,6 @@
     <disable_collisions link1="chassis_link" link2="hinge_link" reason="Never" />
     <disable_collisions link1="chassis_link" link2="left_side_cover_link" reason="Adjacent" />
     <disable_collisions link1="chassis_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="chassis_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="chassis_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="chassis_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="chassis_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="chassis_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="chassis_link" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="chassis_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="chassis_link" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="chassis_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="chassis_link" link2="panda_link4_sc" reason="Never" />
     <disable_collisions link1="chassis_link" link2="rear_cover_link" reason="Adjacent" />
     <disable_collisions link1="chassis_link" link2="rear_left_wheel_link" reason="Default" />
     <disable_collisions link1="chassis_link" link2="rear_lights_link" reason="Adjacent" />
@@ -297,6 +135,8 @@
     <disable_collisions link1="chassis_link" link2="top_link" reason="Adjacent" />
     <disable_collisions link1="chassis_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="chassis_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="chassis_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="chassis_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="chassis_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="dc_ac" link2="ewellix_lift_base_link" reason="Never" />
     <disable_collisions link1="dc_ac" link2="ewellix_lift_panda_fix" reason="Never" />
@@ -310,16 +150,6 @@
     <disable_collisions link1="dc_ac" link2="hinge_link" reason="Never" />
     <disable_collisions link1="dc_ac" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="dc_ac" link2="panda_controller" reason="Adjacent" />
-    <disable_collisions link1="dc_ac" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="dc_ac" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="dc_ac" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="dc_ac" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="dc_ac" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="dc_ac" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="dc_ac" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="dc_ac" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="dc_ac" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="dc_ac" link2="panda_link4_sc" reason="Never" />
     <disable_collisions link1="dc_ac" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="dc_ac" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="dc_ac" link2="rear_lights_link" reason="Never" />
@@ -334,6 +164,8 @@
     <disable_collisions link1="dc_ac" link2="top_link" reason="Default" />
     <disable_collisions link1="dc_ac" link2="top_plate" reason="Never" />
     <disable_collisions link1="dc_ac" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="dc_ac" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="dc_ac" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="dc_ac" link2="user_pc" reason="Never" />
     <disable_collisions link1="ewellix_lift_base_link" link2="ewellix_lift_panda_fix" reason="Never" />
     <disable_collisions link1="ewellix_lift_base_link" link2="ewellix_lift_scu" reason="Adjacent" />
@@ -346,12 +178,6 @@
     <disable_collisions link1="ewellix_lift_base_link" link2="hinge_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_base_link" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_base_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="ewellix_lift_base_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="ewellix_lift_base_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="ewellix_lift_base_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="ewellix_lift_base_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="ewellix_lift_base_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="ewellix_lift_base_link" link2="panda_link2_sc" reason="Never" />
     <disable_collisions link1="ewellix_lift_base_link" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_base_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_base_link" link2="rear_lights_link" reason="Never" />
@@ -366,6 +192,8 @@
     <disable_collisions link1="ewellix_lift_base_link" link2="top_link" reason="Adjacent" />
     <disable_collisions link1="ewellix_lift_base_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="ewellix_lift_base_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="ewellix_lift_base_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="ewellix_lift_base_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_base_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="ewellix_lift_panda_fix" link2="ewellix_lift_scu" reason="Never" />
     <disable_collisions link1="ewellix_lift_panda_fix" link2="ewellix_lift_top_link" reason="Adjacent" />
@@ -377,11 +205,6 @@
     <disable_collisions link1="ewellix_lift_panda_fix" link2="hinge_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_panda_fix" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_panda_fix" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="ewellix_lift_panda_fix" link2="panda_link0" reason="Default" />
-    <disable_collisions link1="ewellix_lift_panda_fix" link2="panda_link0_sc" reason="Default" />
-    <disable_collisions link1="ewellix_lift_panda_fix" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="ewellix_lift_panda_fix" link2="panda_link1_sc" reason="Default" />
-    <disable_collisions link1="ewellix_lift_panda_fix" link2="panda_link2_sc" reason="Never" />
     <disable_collisions link1="ewellix_lift_panda_fix" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_panda_fix" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_panda_fix" link2="rear_lights_link" reason="Never" />
@@ -396,6 +219,9 @@
     <disable_collisions link1="ewellix_lift_panda_fix" link2="top_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_panda_fix" link2="top_plate" reason="Never" />
     <disable_collisions link1="ewellix_lift_panda_fix" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="ewellix_lift_panda_fix" link2="ur5_arm_base_link" reason="Default" />
+    <disable_collisions link1="ewellix_lift_panda_fix" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="ewellix_lift_panda_fix" link2="ur5_upper_arm_link" reason="Default" />
     <disable_collisions link1="ewellix_lift_panda_fix" link2="user_pc" reason="Never" />
     <disable_collisions link1="ewellix_lift_scu" link2="ewellix_lift_top_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_scu" link2="front_cover_link" reason="Never" />
@@ -406,16 +232,6 @@
     <disable_collisions link1="ewellix_lift_scu" link2="hinge_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_scu" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_scu" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="ewellix_lift_scu" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="ewellix_lift_scu" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="ewellix_lift_scu" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="ewellix_lift_scu" link2="panda_link1_sc" reason="Default" />
-    <disable_collisions link1="ewellix_lift_scu" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="ewellix_lift_scu" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="ewellix_lift_scu" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="ewellix_lift_scu" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="ewellix_lift_scu" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="ewellix_lift_scu" link2="panda_link4_sc" reason="Never" />
     <disable_collisions link1="ewellix_lift_scu" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_scu" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_scu" link2="rear_lights_link" reason="Never" />
@@ -430,6 +246,8 @@
     <disable_collisions link1="ewellix_lift_scu" link2="top_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_scu" link2="top_plate" reason="Never" />
     <disable_collisions link1="ewellix_lift_scu" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="ewellix_lift_scu" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="ewellix_lift_scu" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_scu" link2="user_pc" reason="Never" />
     <disable_collisions link1="ewellix_lift_top_link" link2="front_cover_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_top_link" link2="front_left_wheel_link" reason="Never" />
@@ -439,12 +257,6 @@
     <disable_collisions link1="ewellix_lift_top_link" link2="hinge_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_top_link" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_top_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="ewellix_lift_top_link" link2="panda_link0" reason="Adjacent" />
-    <disable_collisions link1="ewellix_lift_top_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="ewellix_lift_top_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="ewellix_lift_top_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="ewellix_lift_top_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="ewellix_lift_top_link" link2="panda_link2_sc" reason="Never" />
     <disable_collisions link1="ewellix_lift_top_link" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_top_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_top_link" link2="rear_lights_link" reason="Never" />
@@ -459,30 +271,9 @@
     <disable_collisions link1="ewellix_lift_top_link" link2="top_link" reason="Default" />
     <disable_collisions link1="ewellix_lift_top_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="ewellix_lift_top_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="ewellix_lift_top_link" link2="ur5_arm_base_link" reason="Adjacent" />
+    <disable_collisions link1="ewellix_lift_top_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="ewellix_lift_top_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="front_cover_link" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="front_left_wheel_link" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="front_lights_link" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="front_right_wheel_link" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="front_rocker_link" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="panda_hand" reason="Adjacent" />
-    <disable_collisions link1="eyes_link" link2="panda_hand_sc" reason="Default" />
-    <disable_collisions link1="eyes_link" link2="panda_leftfinger" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="panda_link5_sc" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="panda_link6" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="panda_link6_sc" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="panda_link7" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="panda_link7_sc" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="panda_rightfinger" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="eyes_link" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="front_cover_link" link2="front_left_wheel_link" reason="Never" />
     <disable_collisions link1="front_cover_link" link2="front_lights_link" reason="Default" />
     <disable_collisions link1="front_cover_link" link2="front_right_wheel_link" reason="Never" />
@@ -490,17 +281,6 @@
     <disable_collisions link1="front_cover_link" link2="hinge_link" reason="Never" />
     <disable_collisions link1="front_cover_link" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="front_cover_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="front_cover_link" link2="panda_link5_sc" reason="Never" />
     <disable_collisions link1="front_cover_link" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="front_cover_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="front_cover_link" link2="rear_lights_link" reason="Never" />
@@ -515,6 +295,8 @@
     <disable_collisions link1="front_cover_link" link2="top_link" reason="Never" />
     <disable_collisions link1="front_cover_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="front_cover_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="front_cover_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="front_cover_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="front_cover_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="front_lights_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="front_right_wheel_link" reason="Never" />
@@ -522,21 +304,6 @@
     <disable_collisions link1="front_left_wheel_link" link2="hinge_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link5" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link5_sc" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link6" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_link6_sc" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="panda_rightfinger" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="rear_lights_link" reason="Never" />
@@ -551,29 +318,14 @@
     <disable_collisions link1="front_left_wheel_link" link2="top_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="front_left_wheel_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="front_left_wheel_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="front_right_wheel_link" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="front_rocker_link" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="hinge_link" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_hand" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_leftfinger" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link5" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link5_sc" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_link6_sc" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="panda_rightfinger" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="rear_lights_link" reason="Never" />
@@ -588,31 +340,13 @@
     <disable_collisions link1="front_lights_link" link2="top_link" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="front_lights_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="front_lights_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="front_lights_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="front_lights_link" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="front_rocker_link" reason="Adjacent" />
     <disable_collisions link1="front_right_wheel_link" link2="hinge_link" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_hand" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_leftfinger" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link5" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link5_sc" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link6" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link6_sc" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link7" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_link7_sc" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="panda_rightfinger" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="rear_lights_link" reason="Never" />
@@ -627,30 +361,12 @@
     <disable_collisions link1="front_right_wheel_link" link2="top_link" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="front_right_wheel_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="front_right_wheel_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="front_rocker_link" link2="hinge_link" reason="Never" />
     <disable_collisions link1="front_rocker_link" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="front_rocker_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_hand" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_leftfinger" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link5" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link5_sc" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link6" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link6_sc" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link7" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_link7_sc" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="panda_rightfinger" reason="Never" />
     <disable_collisions link1="front_rocker_link" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="front_rocker_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="front_rocker_link" link2="rear_lights_link" reason="Never" />
@@ -665,21 +381,11 @@
     <disable_collisions link1="front_rocker_link" link2="top_link" reason="Never" />
     <disable_collisions link1="front_rocker_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="front_rocker_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="front_rocker_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="front_rocker_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="front_rocker_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="front_rocker_link" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="hinge_link" link2="left_side_cover_link" reason="Never" />
     <disable_collisions link1="hinge_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="hinge_link" link2="panda_link5_sc" reason="Never" />
     <disable_collisions link1="hinge_link" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="hinge_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="hinge_link" link2="rear_lights_link" reason="Never" />
@@ -693,21 +399,20 @@
     <disable_collisions link1="hinge_link" link2="top_link" reason="Never" />
     <disable_collisions link1="hinge_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="hinge_link" link2="top_plate_link" reason="Adjacent" />
+    <disable_collisions link1="hinge_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_ee_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_forearm_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_robotiq_85_base_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_robotiq_85_left_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_upper_arm_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="hinge_link" link2="ur5_wrist_3_link" reason="Never" />
     <disable_collisions link1="hinge_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="left_side_cover_link" link2="panda_controller" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link5" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link5_sc" reason="Never" />
-    <disable_collisions link1="left_side_cover_link" link2="panda_link6_sc" reason="Never" />
     <disable_collisions link1="left_side_cover_link" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="left_side_cover_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="left_side_cover_link" link2="rear_lights_link" reason="Never" />
@@ -722,17 +427,9 @@
     <disable_collisions link1="left_side_cover_link" link2="top_link" reason="Never" />
     <disable_collisions link1="left_side_cover_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="left_side_cover_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="left_side_cover_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="left_side_cover_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="left_side_cover_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="panda_controller" link2="panda_link0" reason="Never" />
-    <disable_collisions link1="panda_controller" link2="panda_link0_sc" reason="Never" />
-    <disable_collisions link1="panda_controller" link2="panda_link1" reason="Never" />
-    <disable_collisions link1="panda_controller" link2="panda_link1_sc" reason="Never" />
-    <disable_collisions link1="panda_controller" link2="panda_link2" reason="Never" />
-    <disable_collisions link1="panda_controller" link2="panda_link2_sc" reason="Never" />
-    <disable_collisions link1="panda_controller" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="panda_controller" link2="panda_link3_sc" reason="Never" />
-    <disable_collisions link1="panda_controller" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="panda_controller" link2="panda_link4_sc" reason="Never" />
     <disable_collisions link1="panda_controller" link2="rear_cover_link" reason="Never" />
     <disable_collisions link1="panda_controller" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="panda_controller" link2="rear_lights_link" reason="Never" />
@@ -747,251 +444,9 @@
     <disable_collisions link1="panda_controller" link2="top_link" reason="Adjacent" />
     <disable_collisions link1="panda_controller" link2="top_plate" reason="Never" />
     <disable_collisions link1="panda_controller" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="panda_controller" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="panda_controller" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="panda_controller" link2="user_pc" reason="Adjacent" />
-    <disable_collisions link1="panda_hand" link2="panda_hand_sc" reason="Adjacent" />
-    <disable_collisions link1="panda_hand" link2="panda_leftfinger" reason="Adjacent" />
-    <disable_collisions link1="panda_hand" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="panda_hand" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="panda_hand" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="panda_hand" link2="panda_link5" reason="Default" />
-    <disable_collisions link1="panda_hand" link2="panda_link5_sc" reason="Default" />
-    <disable_collisions link1="panda_hand" link2="panda_link6" reason="Never" />
-    <disable_collisions link1="panda_hand" link2="panda_link6_sc" reason="Never" />
-    <disable_collisions link1="panda_hand" link2="panda_link7" reason="Adjacent" />
-    <disable_collisions link1="panda_hand" link2="panda_link7_sc" reason="Default" />
-    <disable_collisions link1="panda_hand" link2="panda_rightfinger" reason="Adjacent" />
-    <disable_collisions link1="panda_hand" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_hand" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_hand" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_hand" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_hand" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_hand" link2="wrist_mount_link" reason="Adjacent" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_leftfinger" reason="Default" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_link5" reason="Default" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_link5_sc" reason="Default" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_link6" reason="Never" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_link6_sc" reason="Never" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_link7" reason="Default" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_link7_sc" reason="Default" />
-    <disable_collisions link1="panda_hand_sc" link2="panda_rightfinger" reason="Default" />
-    <disable_collisions link1="panda_hand_sc" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_hand_sc" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_hand_sc" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_hand_sc" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_hand_sc" link2="wrist_mount_link" reason="Default" />
-    <disable_collisions link1="panda_leftfinger" link2="panda_link3" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="panda_link4" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="panda_link4_sc" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="panda_link6" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="panda_link6_sc" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="panda_link7" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="panda_link7_sc" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="panda_rightfinger" reason="Default" />
-    <disable_collisions link1="panda_leftfinger" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_leftfinger" link2="wrist_mount_link" reason="Never" />
-
-    <disable_collisions link1="panda_link0" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="side_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="top_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="top_plate" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link0" link2="user_pc" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="side_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="top_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="top_plate" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link0_sc" link2="user_pc" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="side_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="top_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="top_plate" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link1" link2="user_pc" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="side_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="top_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="top_plate" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link1_sc" link2="user_pc" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="side_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="top_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="top_plate" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link2" link2="user_pc" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="side_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="top_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="top_plate" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link2_sc" link2="user_pc" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="side_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="top_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="user_pc" reason="Never" />
-    <disable_collisions link1="panda_link3" link2="wrist_mount_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="side_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="top_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link3_sc" link2="user_pc" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="side_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="top_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link4" link2="wrist_mount_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="servo_pan_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="servo_tilt_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="servos_base_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="side_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="top_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="user_pc" reason="Never" />
-    <disable_collisions link1="panda_link4_sc" link2="wrist_mount_link" reason="Never" />
-    <disable_collisions link1="panda_link5" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link5" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link5" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link5" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link5" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link5" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link5" link2="wrist_mount_link" reason="Default" />
-    <disable_collisions link1="panda_link5_sc" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link5_sc" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link5_sc" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link5_sc" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link5_sc" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link5_sc" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link5_sc" link2="servo_horn_link" reason="Never" />
-    <disable_collisions link1="panda_link5_sc" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="panda_link5_sc" link2="wrist_mount_link" reason="Never" />
-    <disable_collisions link1="panda_link6" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link6" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link6" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link6" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link6" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link6" link2="wrist_mount_link" reason="Never" />
-    <disable_collisions link1="panda_link6_sc" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link6_sc" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link6_sc" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link6_sc" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link6_sc" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link6_sc" link2="right_side_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link6_sc" link2="wrist_mount_link" reason="Never" />
-    <disable_collisions link1="panda_link7" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link7" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link7" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link7" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link7" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link7" link2="wrist_mount_link" reason="Never" />
-    <disable_collisions link1="panda_link7_sc" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_link7_sc" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link7_sc" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_link7_sc" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_link7_sc" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_link7_sc" link2="wrist_mount_link" reason="Default" />
-    <disable_collisions link1="panda_rightfinger" link2="rear_cover_link" reason="Never" />
-    <disable_collisions link1="panda_rightfinger" link2="rear_left_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_rightfinger" link2="rear_lights_link" reason="Never" />
-    <disable_collisions link1="panda_rightfinger" link2="rear_right_wheel_link" reason="Never" />
-    <disable_collisions link1="panda_rightfinger" link2="rear_rocker_link" reason="Never" />
-    <disable_collisions link1="panda_rightfinger" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="rear_cover_link" link2="rear_left_wheel_link" reason="Never" />
     <disable_collisions link1="rear_cover_link" link2="rear_lights_link" reason="Default" />
     <disable_collisions link1="rear_cover_link" link2="rear_right_wheel_link" reason="Never" />
@@ -1005,8 +460,10 @@
     <disable_collisions link1="rear_cover_link" link2="top_link" reason="Never" />
     <disable_collisions link1="rear_cover_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="rear_cover_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="rear_cover_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="rear_cover_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="rear_cover_link" link2="ur5_upper_arm_link" reason="Never" />
     <disable_collisions link1="rear_cover_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="rear_cover_link" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="rear_lights_link" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="rear_right_wheel_link" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="rear_rocker_link" reason="Adjacent" />
@@ -1019,8 +476,10 @@
     <disable_collisions link1="rear_left_wheel_link" link2="top_link" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="rear_left_wheel_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="rear_left_wheel_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="rear_left_wheel_link" link2="ur5_upper_arm_link" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="rear_left_wheel_link" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="rear_lights_link" link2="rear_right_wheel_link" reason="Never" />
     <disable_collisions link1="rear_lights_link" link2="rear_rocker_link" reason="Never" />
     <disable_collisions link1="rear_lights_link" link2="right_side_cover_link" reason="Never" />
@@ -1032,8 +491,14 @@
     <disable_collisions link1="rear_lights_link" link2="top_link" reason="Never" />
     <disable_collisions link1="rear_lights_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="rear_lights_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="rear_lights_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="rear_lights_link" link2="ur5_forearm_link" reason="Never" />
+    <disable_collisions link1="rear_lights_link" link2="ur5_robotiq_85_left_finger_tip_link" reason="Never" />
+    <disable_collisions link1="rear_lights_link" link2="ur5_robotiq_85_left_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="rear_lights_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="rear_lights_link" link2="ur5_upper_arm_link" reason="Never" />
+    <disable_collisions link1="rear_lights_link" link2="ur5_wrist_1_link" reason="Never" />
     <disable_collisions link1="rear_lights_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="rear_lights_link" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="rear_right_wheel_link" link2="rear_rocker_link" reason="Adjacent" />
     <disable_collisions link1="rear_right_wheel_link" link2="right_side_cover_link" reason="Never" />
     <disable_collisions link1="rear_right_wheel_link" link2="servo_horn_link" reason="Never" />
@@ -1044,8 +509,14 @@
     <disable_collisions link1="rear_right_wheel_link" link2="top_link" reason="Never" />
     <disable_collisions link1="rear_right_wheel_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="rear_right_wheel_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="rear_right_wheel_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="rear_right_wheel_link" link2="ur5_ee_link" reason="Never" />
+    <disable_collisions link1="rear_right_wheel_link" link2="ur5_forearm_link" reason="Never" />
+    <disable_collisions link1="rear_right_wheel_link" link2="ur5_robotiq_85_left_finger_link" reason="Never" />
+    <disable_collisions link1="rear_right_wheel_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Never" />
+    <disable_collisions link1="rear_right_wheel_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="rear_right_wheel_link" link2="ur5_upper_arm_link" reason="Never" />
     <disable_collisions link1="rear_right_wheel_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="rear_right_wheel_link" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="rear_rocker_link" link2="right_side_cover_link" reason="Never" />
     <disable_collisions link1="rear_rocker_link" link2="servo_horn_link" reason="Never" />
     <disable_collisions link1="rear_rocker_link" link2="servo_pan_link" reason="Never" />
@@ -1055,8 +526,11 @@
     <disable_collisions link1="rear_rocker_link" link2="top_link" reason="Never" />
     <disable_collisions link1="rear_rocker_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="rear_rocker_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="rear_rocker_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="rear_rocker_link" link2="ur5_ee_link" reason="Never" />
+    <disable_collisions link1="rear_rocker_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="rear_rocker_link" link2="ur5_upper_arm_link" reason="Never" />
     <disable_collisions link1="rear_rocker_link" link2="user_pc" reason="Never" />
-    <disable_collisions link1="rear_rocker_link" link2="wrist_mount_link" reason="Never" />
     <disable_collisions link1="right_side_cover_link" link2="servo_horn_link" reason="Never" />
     <disable_collisions link1="right_side_cover_link" link2="servo_pan_link" reason="Never" />
     <disable_collisions link1="right_side_cover_link" link2="servo_tilt_link" reason="Never" />
@@ -1065,6 +539,8 @@
     <disable_collisions link1="right_side_cover_link" link2="top_link" reason="Never" />
     <disable_collisions link1="right_side_cover_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="right_side_cover_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="right_side_cover_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="right_side_cover_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="right_side_cover_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="servo_horn_link" link2="servo_pan_link" reason="Adjacent" />
     <disable_collisions link1="servo_horn_link" link2="servo_tilt_link" reason="Never" />
@@ -1073,6 +549,22 @@
     <disable_collisions link1="servo_horn_link" link2="top_link" reason="Never" />
     <disable_collisions link1="servo_horn_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="servo_horn_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_ee_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_forearm_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_robotiq_85_base_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_robotiq_85_left_finger_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_robotiq_85_left_finger_tip_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_robotiq_85_left_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_robotiq_85_right_finger_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_upper_arm_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="servo_horn_link" link2="ur5_wrist_3_link" reason="Never" />
     <disable_collisions link1="servo_horn_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="servo_pan_link" link2="servo_tilt_link" reason="Default" />
     <disable_collisions link1="servo_pan_link" link2="servos_base_link" reason="Adjacent" />
@@ -1080,25 +572,159 @@
     <disable_collisions link1="servo_pan_link" link2="top_link" reason="Never" />
     <disable_collisions link1="servo_pan_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="servo_pan_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="servo_pan_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="servo_pan_link" link2="ur5_ee_link" reason="Never" />
+    <disable_collisions link1="servo_pan_link" link2="ur5_forearm_link" reason="Never" />
+    <disable_collisions link1="servo_pan_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Never" />
+    <disable_collisions link1="servo_pan_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="servo_pan_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="servo_pan_link" link2="ur5_upper_arm_link" reason="Never" />
+    <disable_collisions link1="servo_pan_link" link2="ur5_wrist_1_link" reason="Never" />
     <disable_collisions link1="servo_pan_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="servo_tilt_link" link2="servos_base_link" reason="Never" />
     <disable_collisions link1="servo_tilt_link" link2="side_link" reason="Adjacent" />
     <disable_collisions link1="servo_tilt_link" link2="top_link" reason="Never" />
     <disable_collisions link1="servo_tilt_link" link2="top_plate" reason="Never" />
+    <disable_collisions link1="servo_tilt_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="servo_tilt_link" link2="ur5_ee_link" reason="Never" />
+    <disable_collisions link1="servo_tilt_link" link2="ur5_forearm_link" reason="Never" />
+    <disable_collisions link1="servo_tilt_link" link2="ur5_robotiq_85_base_link" reason="Never" />
+    <disable_collisions link1="servo_tilt_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Never" />
+    <disable_collisions link1="servo_tilt_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="servo_tilt_link" link2="ur5_upper_arm_link" reason="Never" />
+    <disable_collisions link1="servo_tilt_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="servo_tilt_link" link2="ur5_wrist_3_link" reason="Never" />
     <disable_collisions link1="servo_tilt_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="servos_base_link" link2="side_link" reason="Never" />
     <disable_collisions link1="servos_base_link" link2="top_link" reason="Never" />
     <disable_collisions link1="servos_base_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="servos_base_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="servos_base_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="servos_base_link" link2="ur5_ee_link" reason="Never" />
+    <disable_collisions link1="servos_base_link" link2="ur5_forearm_link" reason="Never" />
+    <disable_collisions link1="servos_base_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Never" />
+    <disable_collisions link1="servos_base_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="servos_base_link" link2="ur5_upper_arm_link" reason="Never" />
+    <disable_collisions link1="servos_base_link" link2="ur5_wrist_1_link" reason="Never" />
     <disable_collisions link1="servos_base_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="side_link" link2="top_link" reason="Never" />
     <disable_collisions link1="side_link" link2="top_plate" reason="Never" />
     <disable_collisions link1="side_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_ee_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_forearm_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_robotiq_85_base_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_robotiq_85_left_finger_tip_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_robotiq_85_left_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_upper_arm_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="side_link" link2="ur5_wrist_3_link" reason="Never" />
     <disable_collisions link1="side_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="top_link" link2="top_plate" reason="Adjacent" />
     <disable_collisions link1="top_link" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="top_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="top_link" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="top_link" link2="user_pc" reason="Never" />
     <disable_collisions link1="top_plate" link2="top_plate_link" reason="Never" />
+    <disable_collisions link1="top_plate" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="top_plate" link2="ur5_shoulder_link" reason="Never" />
     <disable_collisions link1="top_plate" link2="user_pc" reason="Never" />
+    <disable_collisions link1="top_plate_link" link2="ur5_arm_base_link" reason="Never" />
+    <disable_collisions link1="top_plate_link" link2="ur5_ee_link" reason="Never" />
+    <disable_collisions link1="top_plate_link" link2="ur5_forearm_link" reason="Never" />
+    <disable_collisions link1="top_plate_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Never" />
+    <disable_collisions link1="top_plate_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="top_plate_link" link2="ur5_shoulder_link" reason="Never" />
+    <disable_collisions link1="top_plate_link" link2="ur5_upper_arm_link" reason="Never" />
+    <disable_collisions link1="top_plate_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="top_plate_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="top_plate_link" link2="ur5_wrist_3_link" reason="Never" />
     <disable_collisions link1="top_plate_link" link2="user_pc" reason="Never" />
+    <disable_collisions link1="ur5_arm_base_link" link2="ur5_shoulder_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_arm_base_link" link2="user_pc" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_robotiq_85_base_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_robotiq_85_left_finger_link" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_robotiq_85_left_finger_tip_link" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_robotiq_85_left_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_robotiq_85_right_finger_link" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_robotiq_85_right_finger_tip_link" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_ee_link" link2="ur5_wrist_3_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_forearm_link" link2="ur5_upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_forearm_link" link2="ur5_wrist_1_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_robotiq_85_left_finger_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_robotiq_85_left_finger_tip_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_robotiq_85_left_inner_knuckle_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_robotiq_85_right_finger_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_robotiq_85_right_finger_tip_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_base_link" link2="ur5_wrist_3_link" reason="Default" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_link" link2="ur5_robotiq_85_left_finger_tip_link" reason="Default" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_link" link2="ur5_robotiq_85_left_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_link" link2="ur5_robotiq_85_right_finger_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_link" link2="ur5_robotiq_85_right_finger_tip_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_link" link2="ur5_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_tip_link" link2="ur5_robotiq_85_left_inner_knuckle_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_tip_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_tip_link" link2="ur5_robotiq_85_right_finger_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_tip_link" link2="ur5_robotiq_85_right_finger_tip_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_tip_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_tip_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_tip_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_tip_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_finger_tip_link" link2="ur5_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_inner_knuckle_link" link2="ur5_robotiq_85_left_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_inner_knuckle_link" link2="ur5_robotiq_85_right_finger_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_inner_knuckle_link" link2="ur5_robotiq_85_right_finger_tip_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_inner_knuckle_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_inner_knuckle_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_inner_knuckle_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_inner_knuckle_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_inner_knuckle_link" link2="ur5_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_knuckle_link" link2="ur5_robotiq_85_right_finger_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_knuckle_link" link2="ur5_robotiq_85_right_finger_tip_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_knuckle_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_knuckle_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_knuckle_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_knuckle_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_left_knuckle_link" link2="ur5_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_link" link2="ur5_robotiq_85_right_finger_tip_link" reason="Default" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_link" link2="ur5_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_tip_link" link2="ur5_robotiq_85_right_inner_knuckle_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_tip_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_tip_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_tip_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_finger_tip_link" link2="ur5_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_inner_knuckle_link" link2="ur5_robotiq_85_right_knuckle_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_inner_knuckle_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_inner_knuckle_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_inner_knuckle_link" link2="ur5_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_knuckle_link" link2="ur5_wrist_1_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_knuckle_link" link2="ur5_wrist_2_link" reason="Never" />
+    <disable_collisions link1="ur5_robotiq_85_right_knuckle_link" link2="ur5_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ur5_shoulder_link" link2="ur5_upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_shoulder_link" link2="user_pc" reason="Never" />
+    <disable_collisions link1="ur5_wrist_1_link" link2="ur5_wrist_2_link" reason="Adjacent" />
+    <disable_collisions link1="ur5_wrist_1_link" link2="ur5_wrist_3_link" reason="Never" />
+    <disable_collisions link1="ur5_wrist_2_link" link2="ur5_wrist_3_link" reason="Adjacent" />
 </robot>
